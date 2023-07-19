@@ -1,6 +1,33 @@
 const { Schema, model, Types } = require("mongoose");
 const date = require("../utils/date")
 
+const reaction = new Schema({
+    reactionId: {
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId()
+    },
+    reactionBody: {
+        type: String,
+        required: true,
+        maxlength: 280,
+    },
+    username: {
+        type: String,
+        required: true,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        get: (createdAtVal) => date(createdAtVal),
+    },
+},
+{
+    toJSON: {
+        getters: true,
+    },
+}
+);
+
 const thought = new Schema({
     thoughtText: {
         type: String,
@@ -26,33 +53,6 @@ const thought = new Schema({
         getters: true,
     },
     id: false,
-}
-);
-
-const reaction = new Schema({
-    reactionId: {
-        type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId()
-    },
-    reactionBody: {
-        type: String,
-        required: true,
-        maxlength: 280,
-    },
-    username: {
-        type: String,
-        required: true,
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-        get: (createdAtVal) => date(createdAtVal),
-    },
-},
-{
-    toJSON: {
-        getters: true,
-    },
 }
 );
 

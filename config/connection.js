@@ -7,4 +7,6 @@ mongoose.connect(
     }
 );
 
-module.exports = connection;
+mongoose.set("debug", true);
+
+module.exports = mongoose.connection;
